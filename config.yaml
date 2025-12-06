@@ -1,0 +1,47 @@
+# Crypto Regime Detection Configuration
+
+data:
+  ticker: "BTC-USD"
+  start_date: "2014-01-01"
+  end_date: null  # null = today
+  interval: "1d"
+  
+paths:
+  raw_data: "data/raw/btc_raw.csv"
+  clean_data: "data/processed/btc_clean.csv"
+  features: "data/processed/features.csv"
+  features_scaled: "data/processed/features_scaled.csv"
+  results_dir: "results/"
+  models_dir: "results/models/"
+  plots_dir: "results/plots/"
+  tables_dir: "results/tables/"
+
+features:
+  volatility_windows: [5, 20]
+  momentum_windows: [5, 10, 21]
+  zscore_window: 20
+  volume_ma_window: 20
+  scaling_method: "standard"
+
+models:
+  hmm:
+    n_states: 4
+    n_iter: 100
+    random_state: 42
+    covariance_type: "full"
+  
+  gmm:
+    n_components: 4
+    n_init: 10
+    random_state: 42
+    covariance_type: "full"
+  
+  cpd:
+    method: "ruptures"  # or "bayesian"
+    model: "rbf"
+    min_size: 20
+    jump: 5
+
+evaluation:
+  risk_free_rate: 0.0  # for Sharpe ratio
+  trading_days_per_year: 365

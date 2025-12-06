@@ -1,0 +1,298 @@
+# 🌀 Crypto Regime Detection using Machine Learning  
+### Hidden Markov Models · Gaussian Mixture Models · Bayesian Change Point Detection  
+### Financial Machine Learning Project – Bitcoin Market Regime Identification
+
+---
+
+## 📌 Project Overview
+
+Financial markets — especially crypto — frequently shift between structural *regimes* such as high volatility, momentum trends, panic crashes, and low-volatility mean-reversion phases.  
+This project builds a **full end-to-end Regime Detection Pipeline** for Bitcoin (BTC) using a mix of classical statistical models and modern ML techniques:
+
+### **Primary Model → Hidden Markov Model (HMM)**
+### **Baseline Model → Gaussian Mixture Model (GMM)**
+### **Scientific Add-on → Bayesian Change Point Detection (CPD)**
+
+The objective is to **classify BTC price history into 3–4 interpretable regimes**, visualize them, and quantify the performance of each regime.
+
+---
+
+## 🎯 Key Deliverables (Outputs)
+
+✔ **Colored BTC Price Chart (Regime Visualization)**  
+✔ **Regime performance table (Sharpe, mean return, vol, drawdown)**  
+✔ **Transition matrix (HMM)**  
+✔ **Cluster centroids & feature profiles (GMM)**  
+✔ **Change point detection overlay chart (Bayesian CPD)**  
+✔ **Full reproducible pipeline with modular code**
+
+---
+
+## 📊 Defined Market Regimes (4 States)
+
+| Regime | Description |
+|--------|-------------|
+| **Panic Regime** | High volatility + large negative returns + volume spikes |
+| **High Volatility Regime** | High vol, mixed returns, unstable transitions |
+| **Momentum Trend Regime** | Positive serial correlation + trend continuation |
+| **Low-Vol Mean Reversion Regime** | Stable periods, low vol, oscillatory behavior |
+
+---
+
+## 🏗 Project Structure
+
+```
+
+crypto-regime-detection/
+├── data/
+│   ├── raw/                    # Raw BTC price data (OHLCV)
+│   └── processed/              # Cleaned data + engineered features
+├── notebooks/
+│   ├── 01_EDA.ipynb
+│   ├── 02_HMM_Modeling.ipynb
+│   ├── 03_GMM_Comparison.ipynb
+│   ├── 04_CPD_Analysis.ipynb
+│   └── 05_Presentation.ipynb   # Polished results for readers
+├── src/
+│   ├── data/
+│   │   └── load_and_clean.py
+│   ├── features/
+│   │   ├── build_features.py
+│   │   └── select_features.py
+│   ├── models/
+│   │   ├── hmm_model.py
+│   │   ├── gmm_baseline.py
+│   │   └── change_point_detection.py
+│   ├── evaluation/
+│   │   ├── performance_by_regime.py
+│   │   └── describe_states.py
+│   └── viz/
+│       └── plot_regimes.py
+├── results/
+│   ├── plots/
+│   ├── tables/
+│   └── models/
+├── requirements.txt
+└── README.md
+
+````
+
+---
+
+## 🔧 Installation
+
+```bash
+git clone https://github.com/<your-username>/crypto-regime-detection.git
+cd crypto-regime-detection
+pip install -r requirements.txt
+````
+
+---
+
+## 📥 Data
+
+You may use:
+
+* Binance API (spot or futures)
+* CoinGecko API
+* Kaggle OHLCV datasets
+* Yahoo Finance (`yfinance`)
+
+Minimum required fields:
+
+```
+timestamp, open, high, low, close, volume
+```
+
+Place raw data inside:
+
+```
+data/raw/btc.csv
+```
+
+---
+
+## 🧩 Feature Engineering
+
+This project uses a carefully curated set of features known to capture market structure:
+
+* **Log Returns**
+* **Rolling Volatility (σ_10, σ_20)**
+* **Z-scored Returns**
+* **Volume/MA Ratio**
+* **Momentum (n-period)**
+* **Realized Volatility**
+* Optional: RSI, MACD, skewness, kurtosis
+
+Run:
+
+```bash
+python src/features/build_features.py
+```
+
+Output saved in:
+
+```
+data/processed/features.csv
+```
+
+---
+
+## 🔮 Model 1 — Hidden Markov Model (HMM)
+
+Used as the **primary regime classification model**.
+
+### Why HMM?
+
+* Captures hidden states
+* Learns transition dynamics
+* Fits well to financial time series
+* Smooth regime allocation vs. clustering
+
+Model: `GaussianHMM` with `n_components=4`.
+
+Run:
+
+```bash
+python src/models/hmm_model.py
+```
+
+Outputs:
+
+* `hmm_regime_labels.csv`
+* Transition matrix
+* State feature profiles
+
+---
+
+## 🎛 Model 2 — Gaussian Mixture Model (GMM)
+
+Used as a **baseline comparison**.
+
+Why?
+
+* Simple, fast, probabilistic
+* Provides good contrast against HMM
+* Helps validate feature separation
+
+Run:
+
+```bash
+python src/models/gmm_baseline.py
+```
+
+Outputs:
+
+* `gmm_labels.csv`
+* Cluster plots
+* BIC/AIC comparison
+
+---
+
+## 🔬 Add-on — Bayesian Change Point Detection (CPD)
+
+Used to detect **structural change points** in volatility/returns.
+
+Adds scientific depth and helps validate HMM transitions.
+
+Run:
+
+```bash
+python src/models/change_point_detection.py
+```
+
+Outputs:
+
+* `cpd_points.csv`
+* overlay chart with HMM regimes
+
+---
+
+## 📈 Regime Visualization
+
+Generates the core chart of the project:
+
+> **BTC price series with color-coded regimes**
+
+Run:
+
+```bash
+python src/viz/plot_regimes.py
+```
+
+Results stored in:
+
+```
+results/plots/btc_regimes_colored.png
+```
+
+---
+
+## 📊 Regime Performance Analysis
+
+Measures:
+
+* Mean return
+* Volatility
+* Sharpe
+* Max drawdown
+* Cumulative return per regime
+* Number of days per regime
+
+Run:
+
+```bash
+python src/evaluation/performance_by_regime.py
+```
+
+Outputs saved in:
+
+```
+results/tables/performance_per_regime.csv
+```
+
+---
+
+## 🧪 Validation & Comparison
+
+Includes:
+
+* HMM vs GMM confusion matrix
+* Regime alignment
+* Feature drift
+* Sensitivity tests: number of components, window sizes
+
+Notebook:
+`notebooks/03_model_comparison.ipynb`
+
+---
+
+## 📢 Example Insights (to include in LinkedIn post)
+
+* BTC’s **Panic Regimes** show extreme negative returns and volatility clustering.
+* **Momentum Regimes** exhibit strong trend continuation signals.
+* **Low-Vol Regimes** provide stable environments suitable for mean-reversion strategies.
+* CPD aligns strongly with HMM transitions, confirming structural breaks.
+
+---
+
+## 📬 Contact
+
+If you are interested in:
+
+* Market regime detection
+* ML-based crypto risk models
+* Algorithmic trading infrastructure
+* Quant research consulting
+
+Feel free to reach out!
+
+**LinkedIn:** [https://www.linkedin.com/in/](https://www.linkedin.com/in/)<your-name>
+**Email:** [your.email@example.com](mailto:your.email@example.com)
+
+---
+
+## 📄 License
+
+MIT License. Free to use, modify, and build upon.
+
