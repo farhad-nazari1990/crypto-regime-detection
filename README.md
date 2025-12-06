@@ -362,9 +362,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📬 Contact
 
-- **Author:** Your Name
-- **Email:** your.email@example.com
-- **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
+- **Author:** Farhad Nazari
+- **Email:** farhad.nazari1989@example.com
+- **LinkedIn:** https://www.linkedin.com/in/farhad-nazari1990)
 
 ---
 
@@ -372,6 +372,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### ⭐ If you found this project helpful, please consider giving it a star!
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by [Farhad Nazari](https://github.com/farhad-nazari1990)
 
 </div>
