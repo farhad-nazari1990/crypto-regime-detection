@@ -1,268 +1,159 @@
-Crypto Regime Detection using Machine Learning
-Hidden Markov Models · Gaussian Mixture Models · Bayesian Change Point Detection
-Financial Machine Learning Project – Bitcoin Market Regime Identification
-📌 Overview
+<h1 align="center">🧠 Crypto Regime Detection using Machine Learning</h1>
 
-Crypto markets constantly shift between structural regimes such as panic crashes, high-volatility turbulence, strong momentum trends, and stable mean-reversion phases.
-This project implements a complete end-to-end Regime Detection Pipeline for Bitcoin (BTC), combining statistical modeling with modern ML tools:
+<p align="center">
+  <img src="https://github.com/farhad-nazari1990/crypto-regime-detection/assets/banner_example.png" width="80%" alt="Project Banner (replace with your own)">
+</p>
 
-Primary Model — Hidden Markov Model (HMM)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-blue" />
+  <img src="https://img.shields.io/badge/Status-Active-success" />
+  <img src="https://img.shields.io/github/stars/farhad-nazari1990/crypto-regime-detection?style=social" />
+  <img src="https://img.shields.io/badge/License-MIT-green" />
+</p>
 
-Baseline Model — Gaussian Mixture Model (GMM)
+---
 
-Scientific Add-on — Bayesian Change Point Detection (CPD)
+## 🎯 **Overview**
 
-The goal is to classify BTC’s historical price data into interpretable market regimes, visualize them, and analyze their performance characteristics.
+Crypto markets constantly shift between structural regimes such as:
+- Panic crashes  
+- High-volatility turbulence  
+- Trend-following momentum  
+- Low-volatility mean reversion  
 
-🎯 Key Deliverables
+This project implements a **modular ML framework** for:
+- Hidden Markov Models (HMM)
+- Gaussian Mixture Models (GMM)
+- Bayesian Change Point Detection (CPD)
+- Feature-rich market state analysis
+- Walk-forward evaluation
 
-✔ Color-coded BTC price chart with regime overlays
-✔ Regime performance table (returns, volatility, Sharpe, drawdown)
-✔ HMM transition matrix
-✔ GMM cluster centroids & feature profiles
-✔ Bayesian CPD change-point markers
-✔ Fully reproducible, modular, and extendable codebase
+---
 
-📊 Defined Market Regimes (4-State Model)
-Regime	Description
-Panic Regime	Extreme negative returns, volatility spikes, disorderly price moves
-High-Volatility Regime	Unstable periods with large swings and noisy signals
-Momentum Trend Regime	Positive autocorrelation, strong directional trends
-Low-Vol Mean-Reversion Regime	Stable conditions, low volatility, oscillatory behavior
-🏗 Project Structure
+# 🎨 **📌 NEW: Visual Preview (Graphic Section)**
+
+### 🔷 **Regime-Colored Price Chart**
+<p align="center">
+  <img src="docs/images/sample_regime_chart.png" width="85%">
+</p>
+
+---
+
+### 🔶 **State Transition Heatmap**
+<p align="center">
+  <img src="docs/images/transition_matrix.png" width="70%">
+</p>
+
+---
+
+### 🔷 **Feature Distribution per Regime**
+<p align="center">
+  <img src="docs/images/feature_distributions.png" width="85%">
+</p>
+
+---
+
+### 🔶 **Bayesian Change Points**
+<p align="center">
+  <img src="docs/images/cpd.png" width="80%">
+</p>
+
+---
+
+## 🧬 System Architecture (Graphic + ASCII)
+
+<p align="center">
+  <img src="docs/images/system_architecture.png" width="75%">
+</p>
+
+            ┌────────────────────────────┐
+            │        Data Loader         │
+            └─────────────┬──────────────┘
+                          ▼
+            ┌────────────────────────────┐
+            │    Feature Engineering     │
+            └─────────────┬──────────────┘
+                          ▼
+     ┌───────────────────────────────┬───────────────────────────────┐
+     │         HMM Model             │           GMM Baseline         │
+     └───────────────────────────────┴───────────────────────────────┘
+                          ▼
+            ┌────────────────────────────┐
+            │ Walk-Forward Evaluation    │
+            └─────────────┬──────────────┘
+                          ▼
+            ┌────────────────────────────┐
+            │    Visualization Reports   │
+            └────────────────────────────┘
+
+
+---
+
+# 📁 Project Structure
+
 crypto-regime-detection/
-├── data/
-│   ├── raw/                    # Raw OHLCV data
-│   └── processed/              # Cleaned data + engineered features
-├── notebooks/
-│   ├── 01_EDA.ipynb
-│   ├── 02_HMM_Modeling.ipynb
-│   ├── 03_GMM_Comparison.ipynb
-│   ├── 04_CPD_Analysis.ipynb
-│   └── 05_Presentation.ipynb
+│
 ├── src/
-│   ├── data/
-│   │   └── load_and_clean.py
-│   ├── features/
-│   │   ├── build_features.py
-│   │   └── select_features.py
-│   ├── models/
-│   │   ├── hmm_model.py
-│   │   ├── gmm_baseline.py
-│   │   └── change_point_detection.py
-│   ├── evaluation/
-│   │   ├── performance_by_regime.py
-│   │   └── describe_states.py
-│   └── viz/
-│       └── plot_regimes.py
+│ ├── data/
+│ ├── features/
+│ ├── models/
+│ ├── evaluation/
+│ ├── visualization/
+│ └── utils/
+│
+├── docs/
+│ └── images/ # <-- Place your graphics here
+│
+├── notebooks/
+├── configs/
 ├── results/
-│   ├── plots/
-│   ├── tables/
-│   └── models/
-├── requirements.txt
 └── README.md
 
-🔧 Installation
-git clone https://github.com/<your-username>/crypto-regime-detection.git
+
+---
+
+# 🚀 Installation
+
+```bash
+git clone https://github.com/farhad-nazari1990/crypto-regime-detection.git
 cd crypto-regime-detection
 pip install -r requirements.txt
 
-📥 Data
+⚡ Quick Start
 
-You may use:
+python src/main.py --config configs/btc.yaml
 
-Binance API
+🔍 Features
 
-CoinGecko API
+    Time-series feature engineering
 
-Kaggle OHLCV datasets
+    HMM/GMM clustering
 
-Yahoo Finance (yfinance)
+    Change point detection
 
-Expected fields:
+    Volatility & trend metrics
 
-timestamp, open, high, low, close, volume
+    Rolling window evaluation
 
+    Regime scoring & risk statistics
 
-Place raw BTC data in:
+🔮 Roadmap
 
-data/raw/btc.csv
+Add Transformers (TFT, TCN)
 
-🧩 Feature Engineering
+Add real-time prediction engine
 
-The pipeline generates a curated set of features that capture market structure, including:
+Add vectorbt backtesting
 
-Log returns
+    Add order-book microstructure data
 
-Rolling volatility (σ₁₀, σ₂₀)
+🤝 Contributing
 
-Z-scored returns
-
-Volume/MA ratios
-
-Momentum signals
-
-Realized volatility
-
-(Optional) RSI, MACD, skewness, kurtosis
-
-Run:
-
-python src/features/build_features.py
-
-
-Output:
-
-data/processed/features.csv
-
-🔮 Model 1 — Hidden Markov Model (HMM)
-
-Used as the primary regime classifier.
-
-Why HMM?
-
-Learns hidden state dynamics
-
-Captures transitions between regimes
-
-Smoother and more interpretable allocation vs. clustering models
-
-Model specification: GaussianHMM(n_components=4)
-
-Run:
-
-python src/models/hmm_model.py
-
-
-Outputs:
-
-hmm_regime_labels.csv
-
-Transition matrix
-
-State-level feature summaries
-
-🎛 Model 2 — Gaussian Mixture Model (GMM)
-
-Used as a baseline for comparison and validation.
-
-Advantages:
-
-Fast, simple, probabilistic
-
-Provides contrast against HMM’s temporal structure
-
-Helps validate separability of engineered features
-
-Run:
-
-python src/models/gmm_baseline.py
-
-
-Outputs:
-
-gmm_labels.csv
-
-Cluster plots
-
-BIC/AIC benchmark scores
-
-🔬 Add-On — Bayesian Change Point Detection (CPD)
-
-Enhances scientific rigor by identifying structural breaks in volatility/returns.
-Often aligns closely with HMM regime transitions.
-
-Run:
-
-python src/models/change_point_detection.py
-
-
-Outputs:
-
-cpd_points.csv
-
-Price chart with CPD overlay
-
-📈 Regime Visualization
-
-Generates the project’s core visualization: BTC price colored by regime.
-
-Run:
-
-python src/viz/plot_regimes.py
-
-
-Saved to:
-
-results/plots/btc_regimes_colored.png
-
-📊 Regime Performance Analysis
-
-Evaluates each regime’s statistical properties:
-
-Mean return
-
-Volatility
-
-Sharpe ratio
-
-Max drawdown
-
-Cumulative return
-
-Duration (days in regime)
-
-Run:
-
-python src/evaluation/performance_by_regime.py
-
-
-Outputs:
-
-results/tables/performance_per_regime.csv
-
-🧪 Validation & Comparison
-
-Includes:
-
-HMM vs. GMM alignment
-
-Confusion matrix
-
-Feature drift analysis
-
-Sensitivity tests (components, window sizes)
-
-Notebook: 03_model_comparison.ipynb
-
-📢 Example Insights
-
-Panic Regimes exhibit extreme negative returns and volatility clustering.
-
-Momentum Regimes show strong trend continuation and directional persistence.
-
-Low-Volatility Regimes provide stable environments for mean-reversion strategies.
-
-CPD markers strongly overlap with HMM state transitions, confirming structural shifts.
-
+Pull requests welcome.
 📬 Contact
 
-For collaborations on:
+Farhad Nazari
+GitHub: farhad-nazari1990
+📝 License
 
-Market regime detection
-
-ML-based crypto risk models
-
-Algorithmic trading infrastructure
-
-Quantitative research
-
-Feel free to reach out.
-
-LinkedIn: https://www.linkedin.com/in/
-
-<your-name>
-Email: your.email@example.com
-📄 License
-
-MIT License — free to use, modify, and build upon.
+MIT License.
