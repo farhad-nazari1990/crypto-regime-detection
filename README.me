@@ -1,159 +1,259 @@
-<h1 align="center">🧠 Crypto Regime Detection using Machine Learning</h1>
+# 📈 Crypto Market Regime Detection
 
-<p align="center">
-  <img src="https://github.com/farhad-nazari1990/crypto-regime-detection/assets/banner_example.png" width="80%" alt="Project Banner (replace with your own)">
-</p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue" />
-  <img src="https://img.shields.io/badge/Status-Active-success" />
-  <img src="https://img.shields.io/github/stars/farhad-nazari1990/crypto-regime-detection?style=social" />
-  <img src="https://img.shields.io/badge/License-MIT-green" />
-</p>
+> A research-grade, modular framework for **detecting market regimes** in Crypto (and FX) using Machine Learning, Hidden Markov Models, clustering, technical signals, and walk-forward evaluation.
+
+Designed for **Financial Data Scientists** and **Quantitative Researchers**.
 
 ---
 
-## 🎯 **Overview**
-
-Crypto markets constantly shift between structural regimes such as:
-- Panic crashes  
-- High-volatility turbulence  
-- Trend-following momentum  
-- Low-volatility mean reversion  
-
-This project implements a **modular ML framework** for:
-- Hidden Markov Models (HMM)
-- Gaussian Mixture Models (GMM)
-- Bayesian Change Point Detection (CPD)
-- Feature-rich market state analysis
-- Walk-forward evaluation
+## 📑 Table of Contents
+- [Key Capabilities](#-key-capabilities)
+- [System Architecture](#-system-architecture)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Configuration](#-configuration-yaml-based)
+- [Evaluation & Research](#-evaluation)
+- [Roadmap](#-roadmap)
+- [Contact](#-contact)
 
 ---
 
-# 🎨 **📌 NEW: Visual Preview (Graphic Section)**
+## 📌 Key Capabilities
 
-### 🔷 **Regime-Colored Price Chart**
-<p align="center">
-  <img src="docs/images/sample_regime_chart.png" width="85%">
-</p>
+| 🔍 **Market Regime Detection** | ⚙️ **Feature Engineering** |
+| :--- | :--- |
+| • **HMM-based** state discovery<br>• **Clustering:** KMeans, GMM, Bayesian<br>• **Supervised ML:** XGBoost, RF Classifiers | • Volatility, Returns, Rolling Stats<br>• **Trend:** RSI, MACD, ADX, CCI<br>• Microstructure & Liquidity features<br>• Recession & Momentum meta-features |
 
----
-
-### 🔶 **State Transition Heatmap**
-<p align="center">
-  <img src="docs/images/transition_matrix.png" width="70%">
-</p>
+| 🧪 **Evaluation** | 📊 **Visualization Tools** |
+| :--- | :--- |
+| • **Walk-forward** backtesting<br>• Rolling model training<br>• Confusion matrices & ROC/PR plots<br>• Predictive performance curves | • Regime Timelines<br>• State Distribution Charts<br>• Performance Comparison<br>• Transition Heatmaps |
 
 ---
 
-### 🔷 **Feature Distribution per Regime**
-<p align="center">
-  <img src="docs/images/feature_distributions.png" width="85%">
-</p>
+## 🧬 System Architecture
 
----
+The pipeline follows a modular design ensuring separation of concerns between data loading, feature extraction, and model inference.
 
-### 🔶 **Bayesian Change Points**
-<p align="center">
-  <img src="docs/images/cpd.png" width="80%">
-</p>
+```mermaid
+graph TD;
+    A[Data Loader<br/>Crypto/FX - Yahoo, APIs] --> B[Feature Engineering<br/>TI, Stats, Volatility];
+    B --> C[Regime Detection ML<br/>HMM | KMeans | GMM | XGBoost];
+    C --> D[Walk-Forward Evaluation];
+    D --> E[Reports & Plots];
+<!-- Fallback ASCII if Mermaid is not rendered -->
 
----
+<details>
+<summary>Click to view ASCII Architecture</summary>
 
-## 🧬 System Architecture (Graphic + ASCII)
+code
+Text
+download
+content_copy
+expand_less
+┌───────────────────────────────┐
+            │          Data Loader          │
+            │  (Crypto/FX – Yahoo, APIs)    │
+            └───────────────┬───────────────┘
+                            │
+                            ▼
+                 ┌────────────────────┐
+                 │ Feature Engineering │
+                 │  (TI, stats, vol)   │
+                 └───────────┬─────────┘
+                             │
+                             ▼
+              ┌──────────────────────────────┐
+              │     Regime Detection ML      │
+              │ HMM | KMeans | GMM | XGBoost │
+              └───────────────┬──────────────┘
+                              │
+                              ▼
+              ┌───────────────────────────────┐
+              │   Walk-Forward Evaluation     │
+              └───────────────┬───────────────┘
+                              │
+                              ▼
+                  ┌───────────────────────┐
+                  │   Reports & Plots     │
+                  └───────────────────────┘
+</details>
 
-<p align="center">
-  <img src="docs/images/system_architecture.png" width="75%">
-</p>
-
-            ┌────────────────────────────┐
-            │        Data Loader         │
-            └─────────────┬──────────────┘
-                          ▼
-            ┌────────────────────────────┐
-            │    Feature Engineering     │
-            └─────────────┬──────────────┘
-                          ▼
-     ┌───────────────────────────────┬───────────────────────────────┐
-     │         HMM Model             │           GMM Baseline         │
-     └───────────────────────────────┴───────────────────────────────┘
-                          ▼
-            ┌────────────────────────────┐
-            │ Walk-Forward Evaluation    │
-            └─────────────┬──────────────┘
-                          ▼
-            ┌────────────────────────────┐
-            │    Visualization Reports   │
-            └────────────────────────────┘
-
-
----
-
-# 📁 Project Structure
-
+📁 Project Structure
+code
+Bash
+download
+content_copy
+expand_less
 crypto-regime-detection/
 │
 ├── src/
-│ ├── data/
-│ ├── features/
-│ ├── models/
-│ ├── evaluation/
-│ ├── visualization/
-│ └── utils/
+│   ├── data/            # Data loaders, preprocessors, cleaning
+│   ├── features/        # Feature engineering pipelines
+│   ├── models/          # ML models & regime detection algorithms
+│   ├── visualization/   # Charts and reporting
+│   ├── evaluation/      # Walk-forward & metrics
+│   └── utils/           # Config, logging, utilities
 │
-├── docs/
-│ └── images/ # <-- Place your graphics here
-│
-├── notebooks/
-├── configs/
-├── results/
-└── README.md
-
-
----
-
-# 🚀 Installation
-
-```bash
+├── notebooks/           # Research & prototyping notebooks
+├── configs/             # YAML configs for reproducible experiments
+├── requirements.txt     # Python dependencies
+└── README.md            # Project documentation
+🚀 Installation
+1. Clone the repository
+code
+Bash
+download
+content_copy
+expand_less
 git clone https://github.com/farhad-nazari1990/crypto-regime-detection.git
 cd crypto-regime-detection
+2. Install dependencies
+
+It is recommended to use a virtual environment.
+
+code
+Bash
+download
+content_copy
+expand_less
 pip install -r requirements.txt
-
 ⚡ Quick Start
+Run the full pipeline
 
-python src/main.py --config configs/btc.yaml
+Execute the main script using a configuration file:
 
-🔍 Features
+code
+Bash
+download
+content_copy
+expand_less
+python src/main.py --config configs/btc_historical.yaml
+Run Research Notebooks
 
-    Time-series feature engineering
+Explore the data and models interactively:
 
-    HMM/GMM clustering
+code
+Bash
+download
+content_copy
+expand_less
+jupyter notebook notebooks/
+🧩 Configuration (YAML-Based)
 
-    Change point detection
+Experiments are controlled via YAML files in the configs/ directory.
 
-    Volatility & trend metrics
+Example: configs/btc_historical.yaml
 
-    Rolling window evaluation
+code
+Yaml
+download
+content_copy
+expand_less
+symbol: "BTC-USD"
+date_range:
+  start: "2018-01-01"
+  end: "2024-01-01"
 
-    Regime scoring & risk statistics
+features:
+  - returns
+  - volatility
+  - rsi
+  - macd
+  - microstructure
+
+model:
+  type: "hmm"  # Options: hmm, kmeans, gmm, xgboost
+  n_states: 3
+
+evaluation:
+  mode: "walk_forward"
+  window: 250
+🧪 Evaluation
+Running Walk-Forward Evaluation
+
+Validate model robustness by training on a rolling window and testing on unseen data.
+
+code
+Bash
+download
+content_copy
+expand_less
+python src/evaluation/run_walkforward.py \
+  --config configs/btc_historical.yaml
+
+Key Outputs:
+
+✅ Regime Timeline: Historical segmentation of market states.
+
+✅ Transition Matrix: Probability of switching between regimes.
+
+✅ Performance Metrics: Sharpe ratio per regime, predictive accuracy.
+
+✅ Confusion Matrix: Stability of classification.
+
+📊 Visualizations
+
+Use the visualization module to generate publication-ready plots.
+
+code
+Python
+download
+content_copy
+expand_less
+from src.visualization.regime_plot import plot_regimes
+
+# Plot regimes overlaid on price action
+plot_regimes(df, states)
+
+Generates: Regime distribution pie charts, state transition heatmaps, and feature importance charts.
+
+📘 Research Background
+
+The project is inspired by quantitative finance literature:
+
+Regime-switching models in financial markets.
+
+Hidden Markov Models (HMM) for unsupervised state discovery.
+
+Volatility clustering & structural break dynamics.
+
+Walk-forward validation frameworks (Ref: Lopez de Prado, Advances in Financial Machine Learning).
 
 🔮 Roadmap
 
-Add Transformers (TFT, TCN)
+Add Transformer-based time-series models (TFT, TCN).
 
-Add real-time prediction engine
+Integrate Funding Rates + Orderbook features.
 
-Add vectorbt backtesting
+Build documentation website (MkDocs Material).
 
-    Add order-book microstructure data
+Backtesting integration with vectorbt or bt.
+
+Real-time inference API.
 
 🤝 Contributing
 
-Pull requests welcome.
-📬 Contact
+Contributions are welcome! Please follow these steps:
 
-Farhad Nazari
-GitHub: farhad-nazari1990
+Fork the project.
+
+Create your feature branch (git checkout -b feature/AmazingFeature).
+
+Commit your changes (git commit -m 'Add some AmazingFeature').
+
+Push to the branch (git push origin feature/AmazingFeature).
+
+Open a Pull Request.
+
+Please open an issue before submitting a major PR.
+
 📝 License
 
-MIT License.
+Distributed under the MIT License. See LICENSE for more information.
+
+🙋 Contact
+
+Farhad Nazari
+
