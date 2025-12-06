@@ -1,0 +1,2 @@
+adjusted_rand_index,normalized_mutual_info,hmm_transitions,gmm_transitions,hmm_avg_duration,gmm_avg_duration
+0.5640347110290187,0.5142570178941241,762,1008,5.3381389252948885,4.0366699702675914

@@ -4,10 +4,7 @@ data/processed/*.csv
 *.pkl
 *.h5
 
-# Results
-results/plots/*.png
-results/tables/*.csv
-results/models/*
+
 
 # Python
 __pycache__/
@@ -22,8 +19,8 @@ dist/
 build/
 
 # Jupyter
-.ipynb_checkpoints/
-*.ipynb
+
+
 
 # IDEs
 .vscode/
